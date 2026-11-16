@@ -1,0 +1,14 @@
+{
+  "name": "com.sneakawaystudio.intro",
+  "version": "1.0.0",
+  "displayName": "Sneakaway Studio Intro",
+  "description": "The Sneakaway Studio logo intro for Unity games: the triangle draws itself, the S rises in, sneakaway.studio types out, then it fades to the game's colour. Tap to skip.",
+  "unity": "6000.0",
+  "dependencies": {
+    "com.unity.ugui": "2.0.0"
+  },
+  "author": {
+    "name": "Sneakaway Studio",
+    "url": "https://sneakaway.studio"
+  }
+}
