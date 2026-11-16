@@ -219,7 +219,7 @@ namespace SneakawayStudio
         /// <summary>Sets everything as it looks <paramref name="t"/> seconds in.</summary>
         void Apply(float t)
         {
-            triangle.fillAmount = InOutCubic(Progress(t, 0, drawSeconds));
+            triangle.fillAmount = Progress(t, 0, drawSeconds);
 
             float l = OutCubic(Progress(t, letterAt, letterSeconds));
             letter.alpha = l;
