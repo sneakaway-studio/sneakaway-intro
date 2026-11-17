@@ -2,7 +2,6 @@
     "name": "SneakawayStudio.Intro",
     "rootNamespace": "SneakawayStudio",
     "references": [
-        "Unity.TextMeshPro",
         "UnityEngine.UI"
     ],
     "includePlatforms": [],

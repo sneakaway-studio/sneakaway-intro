@@ -5,31 +5,29 @@ the top, the **S** rises in and **sneakaway.studio** types out. Then everything 
 own background colour, and the game appears. It takes about 3.5 seconds, and a tap skips
 to the fade.
 
-It runs in plain code with no tweening library, so the only requirements are Unity's UI and
-TextMesh Pro.
+It runs in plain code with no tweening library, and it's all sprites (no fonts or TextMesh Pro),
+so the only requirement is Unity's UI.
 
 ## Requirements
 
 - Unity 6 (6000.0 or later).
-- **TextMesh Pro Essential Resources** in the project. If the text shows up pink or missing, import
-  them: **Window → TextMeshPro → Import TMP Essential Resources**.
 
 ## Install
 
 In Unity: **Window → Package Manager → + → Install package from git URL…** and paste:
 
 ```
-https://github.com/sneakaway-studio/sneakaway-intro.git#v1.0.0
+https://github.com/sneakaway-studio/sneakaway-intro.git#v1.1.0
 ```
 
-The `#v1.0.0` pins a version, so the project won't change until you choose to update (see
+The `#v1.1.0` pins a version, so the project won't change until you choose to update (see
 [Updating a project](#updating-a-project)). Without it, you get whatever is on `main`
 when you install.
 
 Instead of using Package Manager, you can add the same line to `Packages/manifest.json`:
 
 ```json
-"com.sneakawaystudio.intro": "https://github.com/sneakaway-studio/sneakaway-intro.git#v1.0.0",
+"com.sneakawaystudio.intro": "https://github.com/sneakaway-studio/sneakaway-intro.git#v1.1.0",
 ```
 
 The package then appears in the Project window under **Packages → Sneakaway Studio Intro**.
@@ -114,6 +112,7 @@ All of these are on the **Sneakaway Intro** component.
 | **Url At / Url Seconds** | When sneakaway.studio starts typing, and for how long (1.25, 0.7). |
 | **Fade At / Fade Seconds** | When the fade to the game's colour starts, and for how long (2.9, 0.5). The logo holds until then. |
 | **Hide Seconds** | How long `HideAsync` takes to fade the intro away (0.4). |
+| **Url Char Ends** | Where each character of the URL image ends, so the URL types out a letter at a time. |
 | **Letter Rise** | How far the S rises, as a share of the triangle's height (0.06). |
 | **Play In Editor** | Untick to skip the intro while you work in the editor. Builds always play it. |
 
@@ -131,7 +130,7 @@ matches the intro.
 
 ## Changing the intro for one game
 
-Files inside an installed package are read-only. To change the prefab itself (colours, fonts,
+Files inside an installed package are read-only. To change the prefab itself (colours, images,
 layout), right-click **SneakawayIntro** in the package and choose **Create → Prefab Variant**. That
 saves a copy into your `Assets` folder that you can change freely. It still gets updates
 to the parts you didn't change.
@@ -182,19 +181,26 @@ To release a version:
 ## What's inside
 
 ```
-package.json           name, version, Unity version, dependency on com.unity.ugui (UI + TextMesh Pro)
+package.json           name, version, Unity version, dependency on com.unity.ugui (UI)
 Runtime/
   SneakawayIntro.cs    the animation (namespace SneakawayStudio)
   SneakawayStudio.Intro.asmdef
 Prefabs/
   SneakawayIntro.prefab  Canvas → Background (black, tap to skip), Logo (Triangle, Letter, Url), FadeToGame
 Art/
-  sneakaway-triangle-outline.png   the triangle outline, drawn by a radial fill
-Fonts/
-  Open Sans Light and Regular, with their TextMesh Pro font assets
-  OpenSans-OFL.txt     the fonts' licence (SIL Open Font License; it ships with the fonts)
+  sneakaway-triangle.png   the triangle outline, drawn by a radial fill
+  sneakaway-s.png          the S
+  sneakaway.studio.png     the URL, typed out by a horizontal fill
 ```
 
 How the triangle draws: it's a single Image set to **Filled → Radial 360**, starting at the top and
 going clockwise. As its fill amount goes from 0 to 1, the sweep reveals the outline around the
 triangle: apex, right side, base, left side, like a pen.
+
+How the URL types: it's an Image set to **Filled → Horizontal**, from the left. Instead of
+sliding smoothly, its fill amount jumps from the right edge of one character to the next. Those
+edges are the **Url Char Ends** list on the component (shares of the image's width). If you
+replace `sneakaway.studio.png`, update that list, or empty it for a smooth wipe.
+
+The three images share one scale: each Image is its sprite's pixel size × 0.417 (624 canvas units
+for the 1497 px triangle), so the S and URL keep their size relative to the triangle.

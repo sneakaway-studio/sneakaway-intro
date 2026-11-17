@@ -1,15 +1,12 @@
 fileFormatVersion: 2
-guid: 083d8fd8e5aaa4ee3a4c86175750802a
+guid: c7f41b6e4b7448258b618e03a310832b
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 1607084378878549353
-    second: sneakaway-triangle-outline_0
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 0
+    enableMipMap: 1
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -139,29 +136,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: sneakaway-triangle-outline_0
-      rect:
-        serializedVersion: 2
-        x: 24
-        y: 34
-        width: 976
-        height: 976
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: -1
-      bones: []
-      spriteID: 96d92275ab28d4610800000000000000
-      internalID: 1607084378878549353
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     customData: 
     physicsShape: []
@@ -175,8 +150,7 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable:
-      sneakaway-triangle-outline_0: 1607084378878549353
+    nameFileIdTable: {}
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

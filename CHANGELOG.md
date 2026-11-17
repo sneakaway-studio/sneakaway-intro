@@ -1,5 +1,13 @@
 # Changelog
 
+## 1.1.0 (2026-11-17)
+
+- No fonts: the S and sneakaway.studio are now sprites, so the package no longer needs TextMesh
+  Pro or its Essential Resources. The Open Sans fonts are removed.
+- New triangle art (`sneakaway-triangle.png`) replaces the old outline.
+- The URL still types out a letter at a time: a horizontal fill steps through each character's
+  right edge (**Url Char Ends**).
+
 ## 1.0.1 (2026-11-16)
 
 - The triangle now draws at an even speed instead of easing in and out.

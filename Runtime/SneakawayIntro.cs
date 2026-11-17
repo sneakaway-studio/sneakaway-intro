@@ -1,5 +1,4 @@
 using System.Threading.Tasks;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
@@ -18,8 +17,10 @@ namespace SneakawayStudio
     /// <see cref="PlayAsync"/> while your game loads, then <see cref="HideAsync"/> once the
     /// first scene is ready.</item>
     /// </list>
-    /// The triangle is one Image (Filled, Radial 360, origin Top, clockwise): a radial sweep
-    /// around a thin outline reveals it apex → right side → base → left side, like a pen.
+    /// Everything is a sprite, no fonts. The triangle is one Image (Filled, Radial 360, origin
+    /// Top, clockwise): a radial sweep around the outline reveals it apex → right side → base →
+    /// left side, like a pen. The URL is an Image (Filled, Horizontal, origin Left) whose fill
+    /// steps from one character's right edge to the next, so it types out.
     /// No tweening library: the timeline is computed each frame in <see cref="Update"/>.
     /// </summary>
     public class SneakawayIntro : MonoBehaviour
@@ -31,10 +32,18 @@ namespace SneakawayStudio
         private Image triangle;
 
         [SerializeField]
-        private TMP_Text letter;
+        private Image letter;
 
         [SerializeField]
-        private TMP_Text url;
+        private Image url;
+
+        [Tooltip("Where each character of the URL image ends, as a share of its width (left to right). The fill steps through these so the URL types out. Empty: a smooth wipe instead. Update these if you replace the URL image.")]
+        [SerializeField]
+        private float[] urlCharEnds =
+        {
+            0.0513f, 0.1198f, 0.1914f, 0.2580f, 0.3236f, 0.3842f, 0.4867f, 0.5466f,
+            0.6145f, 0.6441f, 0.7041f, 0.7570f, 0.8239f, 0.8998f, 0.9328f, 1f,
+        };
 
         [Tooltip("Full-screen Image in the game's background colour; fades in at the end. Set its colour to your game's.")]
         [SerializeField]
@@ -222,13 +231,18 @@ namespace SneakawayStudio
             triangle.fillAmount = Progress(t, 0, drawSeconds);
 
             float l = OutCubic(Progress(t, letterAt, letterSeconds));
-            letter.alpha = l;
+            SetAlpha(letter, l);
             letter.rectTransform.anchoredPosition =
                 letterHome + Vector2.down * ((1 - l) * triangleHeight * letterRise);
 
-            url.maxVisibleCharacters = Mathf.RoundToInt(
-                url.text.Length * Progress(t, urlAt, urlSeconds)
-            );
+            float u = Progress(t, urlAt, urlSeconds);
+            if (urlCharEnds == null || urlCharEnds.Length == 0)
+                url.fillAmount = u;
+            else
+            {
+                int shown = Mathf.RoundToInt(urlCharEnds.Length * u);
+                url.fillAmount = shown > 0 ? urlCharEnds[shown - 1] : 0;
+            }
 
             SetAlpha(fadeOverlay, InOutCubic(Progress(t, fadeAt, fadeSeconds)));
         }
